@@ -232,6 +232,7 @@ func (s *sso) HandleCallback(w http.ResponseWriter, r *http.Request) {
 	cookie, err := r.Cookie(state)
 	http.SetCookie(w, &http.Cookie{Name: state, MaxAge: 0})
 	if err != nil {
+		log.WithError(err).Error("Failed to set Cookie")
 		w.WriteHeader(400)
 		return
 	}
